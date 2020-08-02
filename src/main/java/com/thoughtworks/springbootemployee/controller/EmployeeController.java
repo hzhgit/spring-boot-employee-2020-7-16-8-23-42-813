@@ -35,5 +35,15 @@ public class EmployeeController {
         return deletedEmployee;
     }
 
+    @PostMapping
+    public Employee addEmployee(@RequestBody Employee addEmployee){
+        List<Employee> employees = initData();
+        employees.add(addEmployee);
+        Employee returnEmployee = employees.stream().filter(employee->{
+            return employee.getName() == addEmployee.getName();
+        }).findFirst().orElse(null);
+        return returnEmployee;
+    }
+
 
 }
