@@ -1,9 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,4 +25,15 @@ public class EmployeeController {
     public List<Employee> getAllEmployees() {
         return initData();
     }
+
+    @DeleteMapping("/{id}")
+    public Employee deleteEmployee(@PathVariable Integer id){
+        List<Employee> employees = initData();
+        Employee deletedEmployee = employees.stream().filter(employee->{
+            return employee.getId() == id;
+        }).findFirst().orElse(null);
+        return deletedEmployee;
+    }
+
+
 }
