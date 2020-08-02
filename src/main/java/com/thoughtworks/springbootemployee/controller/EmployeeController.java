@@ -45,5 +45,17 @@ public class EmployeeController {
         return returnEmployee;
     }
 
-
+    @PutMapping("/{id}")
+    public Employee updateEmployee(@PathVariable Integer id ,@RequestBody Employee updateEmployee){
+        List<Employee> employees = initData();
+        for (int index = 0; index < employees.size(); index++) {
+            if(employees.get(index).getId() == id){
+                employees.set(index,updateEmployee);
+            }
+        }
+        Employee returnEmployee = employees.stream().filter(employee->{
+            return employee.getName() == updateEmployee.getName();
+        }).findFirst().orElse(null);
+        return returnEmployee;
+    }
 }
